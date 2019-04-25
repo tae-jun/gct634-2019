@@ -54,6 +54,7 @@ class Runner(object):
 
       prediction = self.model(x)
       if mode == 'test':
+        prediction = torch.softmax(prediction, dim=1)
         prediction = prediction.reshape(-1, 10, prediction.shape[1])
         prediction = prediction.mean(dim=1)
         y = y[torch.arange(0, len(y), 10)]
@@ -94,6 +95,8 @@ def device_name(device):
 def main():
   train_loader, valid_loader, test_loader = data_manager.get_dataloader(hparams)
   runner = Runner(hparams)
+
+  test_loss, test_acc = runner.run(test_loader, 'test')
 
   print('Training on ' + device_name(hparams.device))
   for epoch in range(hparams.num_epochs):
