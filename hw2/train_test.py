@@ -17,7 +17,7 @@ from densenet import DenseNet
 class Runner(object):
   def __init__(self, hparams):
     # self.model = models.Baseline(hparams)
-    self.model = DenseNet(drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
+    self.model = DenseNet(block_config=(6, 6, 6, 6), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
     self.criterion = torch.nn.CrossEntropyLoss()
     self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
                                      momentum=hparams.momentum, nesterov=True)
