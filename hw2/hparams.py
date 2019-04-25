@@ -31,6 +31,7 @@ class HParams(object):
 		self.learning_rate = 1e-2
 		self.stopping_rate = 1e-5
 		self.weight_decay = 1e-6
+		self.drop_rate = 0.2
 		self.momentum = 0.9
 		self.factor = 0.2
 		self.patience = 3
