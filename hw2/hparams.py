@@ -26,7 +26,7 @@ class HParams(object):
 
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...
-		self.batch_size = 4
+		self.batch_size = 64
 		self.num_epochs = 100
 		self.learning_rate = 1e-2
 		self.stopping_rate = 1e-5

@@ -33,7 +33,7 @@ def load_dataset(set_name, hparams):
 	y = []
 
 	dataset_path = os.path.join(hparams.feature_path, set_name)
-	for path in glob(f'{dataset_path}/*/*.npy'):
+	for path in sorted(glob(f'{dataset_path}/*/*.npy')):
 		data = np.load(path)
 		label = get_label(path, hparams)
 		x.append(data)
@@ -66,6 +66,6 @@ def get_dataloader(hparams):
 
 	train_loader = DataLoader(train_set, batch_size=hparams.batch_size, shuffle=True, drop_last=False)
 	valid_loader = DataLoader(valid_set, batch_size=hparams.batch_size, shuffle=False, drop_last=False)
-	test_loader = DataLoader(test_set, batch_size=hparams.batch_size, shuffle=False, drop_last=False)
+	test_loader = DataLoader(test_set, batch_size=10, shuffle=False, drop_last=False)
 
 	return train_loader, valid_loader, test_loader

@@ -11,13 +11,14 @@ import data_manager
 import models
 from hparams import hparams
 from densenet import DenseNet
+from torchvision.models import ResNet
 
 
 # Wrapper class to run PyTorch model
 class Runner(object):
   def __init__(self, hparams):
     # self.model = models.Baseline(hparams)
-    self.model = DenseNet(block_config=(6, 6, 6, 6), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
+    self.model = DenseNet(block_config=(4, 4, 4), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
     self.criterion = torch.nn.CrossEntropyLoss()
     self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
                                      momentum=hparams.momentum, nesterov=True)
@@ -52,6 +53,8 @@ class Runner(object):
       y = y.to(self.device)
 
       prediction = self.model(x)
+      if mode == 'eval':
+        prediction = prediction.mean(dim=0, keepdim=True).shape
       loss = self.criterion(prediction, y)
       acc = self.accuracy(prediction, y)
 
