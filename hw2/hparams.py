@@ -21,7 +21,8 @@ class HParams(object):
 		self.win_size = 1024
 		self.hop_size = 512
 		self.num_mels = 128
-		self.feature_length = 1024  # audio length = feature_length*hop_size/sample_rate (s)
+		self.time_size = 128
+		# self.feature_length = 1024  # audio length = feature_length*hop_size/sample_rate (s)
 
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...

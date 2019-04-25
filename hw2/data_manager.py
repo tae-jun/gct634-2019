@@ -5,6 +5,7 @@ A file that loads saved features and convert them into PyTorch DataLoader.
 '''
 import os
 import numpy as np
+from glob import glob
 from torch.utils.data import Dataset, DataLoader
 
 # Class based on PyTorch Dataset
@@ -21,7 +22,7 @@ class GTZANDataset(Dataset):
 
 # Function to get genre index for the given file
 def get_label(file_name, hparams):
-	genre = file_name.split('.')[0]
+	genre = file_name.split('/')[-2]
 	label = hparams.genres.index(genre)
 
 	return label
@@ -32,12 +33,11 @@ def load_dataset(set_name, hparams):
 	y = []
 
 	dataset_path = os.path.join(hparams.feature_path, set_name)
-	for root, dirs, files in os.walk(dataset_path):
-		for file in files:
-			data = np.load(os.path.join(root, file))
-			label = get_label(file, hparams)
-			x.append(data)
-			y.append(label)
+	for path in glob(f'{dataset_path}/*/*.npy'):
+		data = np.load(path)
+		label = get_label(path, hparams)
+		x.append(data)
+		y.append(label)
 
 	x = np.stack(x)
 	y = np.stack(y)
@@ -49,6 +49,10 @@ def get_dataloader(hparams):
 	x_train, y_train = load_dataset('train', hparams)
 	x_valid, y_valid = load_dataset('valid', hparams)
 	x_test, y_test = load_dataset('test', hparams)
+
+	x_train = np.expand_dims(x_train, 1)
+	x_valid = np.expand_dims(x_valid, 1)
+	x_test = np.expand_dims(x_test, 1)
 
 	mean = np.mean(x_train)
 	std = np.std(x_train)
