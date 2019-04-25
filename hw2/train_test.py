@@ -18,10 +18,11 @@ from torchvision.models import ResNet
 class Runner(object):
   def __init__(self, hparams):
     # self.model = models.Baseline(hparams)
-    self.model = DenseNet(growth_rate=16, block_config=(4, 4, 4), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
+    self.model = DenseNet(growth_rate=16, block_config=(4, 4, 4), drop_rate=hparams.drop_rate,
+                          num_classes=len(hparams.genres))
     self.criterion = torch.nn.CrossEntropyLoss()
     self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
-                                     momentum=hparams.momentum, nesterov=True)
+                                     weight_decay=hparams.weight_decay, momentum=hparams.momentum, nesterov=True)
     self.scheduler = ReduceLROnPlateau(self.optimizer, mode='min', factor=hparams.factor, patience=hparams.patience,
                                        verbose=True)
     self.learning_rate = hparams.learning_rate
