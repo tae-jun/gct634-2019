@@ -54,7 +54,6 @@ class Runner(object):
 
       prediction = self.model(x)
       if mode == 'test':
-        prediction = torch.softmax(prediction, dim=1)
         prediction = prediction.reshape(-1, 10, prediction.shape[1])
         prediction = prediction.mean(dim=1)
         y = y[torch.arange(0, len(y), 10)]
@@ -111,7 +110,7 @@ def main():
 
   test_loss, test_acc = runner.run(test_loader, 'test')
   print("Training Finished")
-  print("Test Accuracy: %.2f%%" % (100 * test_acc))
+  print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
 
 
 if __name__ == '__main__':
