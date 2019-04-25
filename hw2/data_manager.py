@@ -66,6 +66,6 @@ def get_dataloader(hparams):
 
 	train_loader = DataLoader(train_set, batch_size=hparams.batch_size, shuffle=True, drop_last=False)
 	valid_loader = DataLoader(valid_set, batch_size=hparams.batch_size, shuffle=False, drop_last=False)
-	test_loader = DataLoader(test_set, batch_size=10, shuffle=False, drop_last=False)
+	test_loader = DataLoader(test_set, batch_size=hparams.batch_size // 10 * 10, shuffle=False, drop_last=False)
 
 	return train_loader, valid_loader, test_loader

@@ -54,7 +54,9 @@ class Runner(object):
 
       prediction = self.model(x)
       if mode == 'eval':
-        prediction = prediction.mean(dim=0, keepdim=True).shape
+        prediction = prediction.reshape(-1, 10, prediction.shape[1])
+        prediction = prediction.mean(dim=1)
+        y = y[torch.arange(0, 60, 10)]
       loss = self.criterion(prediction, y)
       acc = self.accuracy(prediction, y)
 
