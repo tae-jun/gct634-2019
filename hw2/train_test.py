@@ -18,7 +18,7 @@ from torchvision.models import ResNet
 class Runner(object):
   def __init__(self, hparams):
     # self.model = models.Baseline(hparams)
-    self.model = DenseNet(block_config=(4, 4, 4), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
+    self.model = DenseNet(growth_rate=16, block_config=(4, 4, 4), drop_rate=hparams.drop_rate, num_classes=len(hparams.genres))
     self.criterion = torch.nn.CrossEntropyLoss()
     self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
                                      momentum=hparams.momentum, nesterov=True)
@@ -56,7 +56,7 @@ class Runner(object):
       if mode == 'test':
         prediction = prediction.reshape(-1, 10, prediction.shape[1])
         prediction = prediction.mean(dim=1)
-        y = y[torch.arange(0, 60, 10)]
+        y = y[torch.arange(0, len(y), 10)]
       loss = self.criterion(prediction, y)
       acc = self.accuracy(prediction, y)
 
