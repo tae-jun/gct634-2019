@@ -53,7 +53,7 @@ class Runner(object):
       y = y.to(self.device)
 
       prediction = self.model(x)
-      if mode == 'eval':
+      if mode == 'test':
         prediction = prediction.reshape(-1, 10, prediction.shape[1])
         prediction = prediction.mean(dim=1)
         y = y[torch.arange(0, 60, 10)]
@@ -106,7 +106,7 @@ def main():
     if runner.early_stop(valid_loss, epoch + 1):
       break
 
-  test_loss, test_acc = runner.run(test_loader, 'eval')
+  test_loss, test_acc = runner.run(test_loader, 'test')
   print("Training Finished")
   print("Test Accuracy: %.2f%%" % (100 * test_acc))
 
