@@ -22,14 +22,13 @@ def load_list(list_name, hparams):
 
 def melspectrogram(file_name, hparams):
   y, sr = librosa.load(os.path.join(hparams.dataset_path, file_name), hparams.sample_rate)
-  S = librosa.stft(y, n_fft=hparams.fft_size, hop_length=hparams.hop_size, win_length=hparams.win_size)
 
-  mel_basis = librosa.filters.mel(hparams.sample_rate, n_fft=hparams.fft_size, n_mels=hparams.num_mels)
-  mel_S = np.dot(mel_basis, np.abs(S))
-  mel_S = np.log10(1 + 10 * mel_S)
-  mel_S = mel_S.T
+  spec = librosa.feature.melspectrogram(y, sr, n_fft=hparams.fft_size, hop_length=hparams.hop_size,
+                                        n_mels=hparams.num_mels)
+  spec = librosa.amplitude_to_db(spec, ref=1.0)
+  spec = spec.T
 
-  return mel_S
+  return spec
 
 
 def resize_array(array, time_size):
