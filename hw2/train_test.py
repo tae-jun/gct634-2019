@@ -19,7 +19,7 @@ class Runner(object):
   def __init__(self, hparams):
     # self.model = models.Baseline(hparams)
     # self.model = ResNet([2, 2, 2, 2], num_classes=len(hparams.genres), zero_init_residual=True)
-    self.model = DenseNet(growth_rate=16, block_config=(4, 4, 4), drop_rate=hparams.drop_rate,
+    self.model = DenseNet(growth_rate=32, block_config=(4, 4, 4), drop_rate=hparams.drop_rate,
                           num_classes=len(hparams.genres))
 
     self.criterion = torch.nn.CrossEntropyLoss()
@@ -112,7 +112,7 @@ def main():
 
   # test_loss, test_acc = runner.run(test_loader, 'test')
   print("Training Finished")
-  # print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
+  print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
 
 
 if __name__ == '__main__':
