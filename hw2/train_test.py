@@ -101,13 +101,14 @@ def main():
   for epoch in range(hparams.num_epochs):
     train_loss, train_acc = runner.run(train_loader, 'train')
     valid_loss, valid_acc = runner.run(valid_loader, 'eval')
+    
+    test_loss, test_acc = runner.run(test_loader, 'test')
+    print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
 
     print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Valid Loss: %.4f] [Valid Acc: %.4f]" %
           (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc))
 
     if runner.early_stop(valid_loss, epoch + 1):
-      test_loss, test_acc = runner.run(test_loader, 'test')
-      print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
       break
 
   # test_loss, test_acc = runner.run(test_loader, 'test')

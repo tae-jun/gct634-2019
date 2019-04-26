@@ -34,11 +34,11 @@ class HParams(object):
 		self.num_epochs = 100
 		self.learning_rate = 1e-2
 		self.stopping_rate = 1e-5
-		self.weight_decay = 1e-6
+		self.weight_decay = 1e-4
 		self.drop_rate = 0.0
 		self.momentum = 0.9
 		self.factor = 0.2
-		self.patience = 3
+		self.patience = 2
 
 	# Function for parsing argument and set hyper parameters
 	def parse_argument(self, print_argument=True):
