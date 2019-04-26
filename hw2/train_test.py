@@ -5,7 +5,7 @@ A file for training model for genre classification.
 Please check the device in hparams.py before you run this code.
 '''
 import torch
-from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch.optim.lr_scheduler import ReduceLROnPlateau, StepLR
 
 import data_manager
 from hparams import hparams
@@ -25,8 +25,9 @@ class Runner(object):
     self.criterion = torch.nn.CrossEntropyLoss()
     self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
                                      weight_decay=hparams.weight_decay, momentum=hparams.momentum, nesterov=True)
-    self.scheduler = ReduceLROnPlateau(self.optimizer, mode='min', factor=hparams.factor, patience=hparams.patience,
-                                       verbose=True)
+    # self.scheduler = ReduceLROnPlateau(self.optimizer, mode='min', factor=hparams.factor, patience=hparams.patience,
+    #                                    verbose=True)
+    self.scheduler = StepLR(self.optimizer, step_size=10, gamma=hparams.factor)
     self.learning_rate = hparams.learning_rate
     self.stopping_rate = hparams.stopping_rate
     self.device = torch.device("cpu")
