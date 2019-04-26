@@ -10,12 +10,23 @@ from torch.utils.data import Dataset, DataLoader
 
 # Class based on PyTorch Dataset
 class GTZANDataset(Dataset):
-	def __init__(self, x, y):
+	def __init__(self, x, y, hparams):
 		self.x = x
 		self.y = y
+		self.hparams = hparams
 
 	def __getitem__(self, index):
-		return self.x[index], self.y[index]
+		x = self.x[index].copy()
+
+		if np.random.uniform() > 0.5:  # augment time
+			i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
+			x[:, i:i+self.hparams.aug_size, :] = self.hparams.mask_value
+
+		if np.random.uniform() > 0.5:  # augment frequency
+			i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
+			x[:, :, i:i+self.hparams.aug_size] = self.hparams.mask_value
+
+		return x, self.y[index]
 
 	def __len__(self):
 		return self.x.shape[0]
@@ -60,9 +71,9 @@ def get_dataloader(hparams):
 	x_valid = (x_valid - mean)/std
 	x_test = (x_test - mean)/std
 
-	train_set = GTZANDataset(x_train, y_train)
-	valid_set = GTZANDataset(x_valid, y_valid)
-	test_set = GTZANDataset(x_test, y_test)
+	train_set = GTZANDataset(x_train, y_train, hparams)
+	valid_set = GTZANDataset(x_valid, y_valid, hparams)
+	test_set = GTZANDataset(x_test, y_test, hparams)
 
 	train_loader = DataLoader(train_set, batch_size=hparams.batch_size, shuffle=True, drop_last=False)
 	valid_loader = DataLoader(valid_set, batch_size=hparams.batch_size, shuffle=False, drop_last=False)

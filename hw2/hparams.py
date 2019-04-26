@@ -24,6 +24,10 @@ class HParams(object):
 		self.time_size = 128
 		# self.feature_length = 1024  # audio length = feature_length*hop_size/sample_rate (s)
 
+		# SpecAugment Parameters
+		self.mask_value = -3.0834918
+		self.aug_size = 16
+
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...
 		self.batch_size = 64

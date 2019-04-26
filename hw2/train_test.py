@@ -96,8 +96,6 @@ def main():
   train_loader, valid_loader, test_loader = data_manager.get_dataloader(hparams)
   runner = Runner(hparams)
 
-  test_loss, test_acc = runner.run(test_loader, 'test')
-
   print('Training on ' + device_name(hparams.device))
   for epoch in range(hparams.num_epochs):
     train_loss, train_acc = runner.run(train_loader, 'train')
