@@ -103,14 +103,16 @@ def main():
   print('Training on ' + device_name(hparams.device))
   for epoch in range(hparams.num_epochs):
     train_loss, train_acc = runner.run(train_loader, 'train')
-    valid_loss, valid_acc = runner.run(valid_loader, 'eval')
+    # valid_loss, valid_acc = runner.run(valid_loader, 'eval')
     test_loss, test_acc = runner.run(test_loader, 'test')
 
-    print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Valid Loss: %.4f] [Valid Acc: %.4f] [Test Acc: %.4f]" %
-          (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc, test_acc * 10))
+    # print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Valid Loss: %.4f] [Valid Acc: %.4f] [Test Acc: %.4f]" %
+    #       (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc, test_acc * 10))
+    print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Test Acc: %.4f]" %
+          (epoch + 1, hparams.num_epochs, train_loss, train_acc, test_acc * 10))
 
-    if runner.early_stop(valid_loss, epoch + 1):
-      break
+    # if runner.early_stop(valid_loss, epoch + 1):
+    #   break
 
   # test_loss, test_acc = runner.run(test_loader, 'test')
   print("Training Finished")
