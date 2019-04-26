@@ -89,6 +89,10 @@ def get_dataloader(hparams):
   x_valid = np.expand_dims(x_valid, 1)
   x_test = np.expand_dims(x_test, 1)
 
+  # TODO:
+  x_train = np.concatenate([x_train, x_valid])
+  y_train = np.concatenate([y_train, y_valid])
+
   mean = np.mean(x_train)
   std = np.std(x_train)
   x_train = (x_train - mean) / std

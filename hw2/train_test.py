@@ -79,7 +79,8 @@ class Runner(object):
 
   # Early stopping function for given validation loss
   def early_stop(self, loss, epoch):
-    self.scheduler.step(loss, epoch)
+    # self.scheduler.step(loss, epoch)
+    self.scheduler.step(epoch)
     self.learning_rate = self.optimizer.param_groups[0]['lr']
     stop = self.learning_rate < self.stopping_rate
 
