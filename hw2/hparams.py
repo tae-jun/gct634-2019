@@ -38,7 +38,7 @@ class HParams(object):
 		self.drop_rate = 0.0
 		self.momentum = 0.9
 		self.factor = 0.2
-		self.patience = 2
+		self.patience = 3
 
 	# Function for parsing argument and set hyper parameters
 	def parse_argument(self, print_argument=True):
