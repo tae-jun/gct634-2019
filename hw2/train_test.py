@@ -105,7 +105,7 @@ def main():
     test_loss, test_acc = runner.run(test_loader, 'test')
 
     print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Valid Loss: %.4f] [Valid Acc: %.4f] [Test Acc: %.4f]" %
-          (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc, test_acc))
+          (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc, test_acc * 10))
 
     if runner.early_stop(valid_loss, epoch + 1):
       break
