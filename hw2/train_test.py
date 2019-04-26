@@ -106,11 +106,13 @@ def main():
           (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc))
 
     if runner.early_stop(valid_loss, epoch + 1):
+      test_loss, test_acc = runner.run(test_loader, 'test')
+      print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
       break
 
-  test_loss, test_acc = runner.run(test_loader, 'test')
+  # test_loss, test_acc = runner.run(test_loader, 'test')
   print("Training Finished")
-  print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
+  # print("Test Accuracy: %.2f%%" % (100 * test_acc * 10))
 
 
 if __name__ == '__main__':
