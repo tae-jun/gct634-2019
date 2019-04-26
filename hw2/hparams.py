@@ -26,7 +26,7 @@ class HParams(object):
 
 		# SpecAugment Parameters
 		self.mask_value = -3.0834918
-		self.aug_size = 12
+		self.aug_size = 10
 
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...
