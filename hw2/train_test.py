@@ -25,12 +25,8 @@ class Runner(object):
                           num_classes=len(hparams.genres))
 
     self.criterion = torch.nn.CrossEntropyLoss()
-    # self.optimizer = torch.optim.SGD(self.model.parameters(), lr=hparams.learning_rate,
-    #                                  weight_decay=hparams.weight_decay, momentum=hparams.momentum, nesterov=True)
-    self.optimizer = optim.Adam(self.model.parameters(), lr=hparams.learning_rate,
-                                weight_decay=hparams.weight_decay)
-    # self.scheduler = ReduceLROnPlateau(self.optimizer, mode='min', factor=hparams.factor, patience=hparams.patience,
-    #                                    verbose=True)
+    self.optimizer = optim.Adam(self.model.parameters(), lr=hparams.learning_rate, weight_decay=hparams.weight_decay,
+                                amsgrad=True)
     self.scheduler = StepLR(self.optimizer, step_size=10, gamma=hparams.factor)
     self.learning_rate = hparams.learning_rate
     self.stopping_rate = hparams.stopping_rate
