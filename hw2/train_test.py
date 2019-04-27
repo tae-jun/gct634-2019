@@ -23,10 +23,8 @@ class Runner(object):
     # self.model = ResNet([2, 2, 2, 2], num_classes=len(hparams.genres), zero_init_residual=True)
     self.model = DenseNet(growth_rate=16, block_config=(4, 4, 4), drop_rate=hparams.drop_rate,
                           num_classes=len(hparams.genres))
-
     self.criterion = torch.nn.CrossEntropyLoss()
-    self.optimizer = optim.Adam(self.model.parameters(), lr=hparams.learning_rate, weight_decay=hparams.weight_decay,
-                                amsgrad=True)
+    self.optimizer = optim.Adam(self.model.parameters(), lr=hparams.learning_rate, weight_decay=hparams.weight_decay)
     self.scheduler = StepLR(self.optimizer, step_size=10, gamma=hparams.factor)
     self.learning_rate = hparams.learning_rate
     self.stopping_rate = hparams.stopping_rate
