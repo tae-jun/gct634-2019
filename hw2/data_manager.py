@@ -18,7 +18,7 @@ class GTZANDataset(Dataset):
     self.aug = aug
 
   def __getitem__(self, index):
-    if self.aug:
+    if self.aug and (self.hparams.aug_size > 0):
       x = self.x[index].copy()
 
       i = np.random.choice(self.hparams.time_size // 2 - self.hparams.aug_size)
