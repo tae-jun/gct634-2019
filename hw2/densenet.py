@@ -19,8 +19,8 @@ class _DenseLayer(nn.Sequential):
 
   def forward(self, x):
     new_features = super(_DenseLayer, self).forward(x)
-    # if self.drop_rate > 0:
-    #   new_features = F.dropout(new_features, p=self.drop_rate, training=self.training)
+    if self.drop_rate > 0:
+      new_features = F.dropout(new_features, p=self.drop_rate, training=self.training)
     return torch.cat([x, new_features], 1)
 
 
@@ -60,7 +60,6 @@ class DenseNet(nn.Module):
                num_init_features=64, bn_size=4, drop_rate=0, num_classes=1000):
 
     super(DenseNet, self).__init__()
-    self.drop_rate = drop_rate
 
     # First convolution
     self.features = nn.Sequential(OrderedDict([
@@ -102,7 +101,5 @@ class DenseNet(nn.Module):
     features = self.features(x)
     out = F.relu(features, inplace=True)
     out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
-    if self.drop_rate > 0:
-      out = F.dropout(out, p=self.drop_rate, training=self.training)
     out = self.classifier(out)
     return out
