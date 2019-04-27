@@ -21,14 +21,18 @@ class GTZANDataset(Dataset):
     if self.aug and (self.hparams.aug_size > 0):
       x = self.x[index].copy()
 
-      i = np.random.choice(self.hparams.time_size // 2 - self.hparams.aug_size)
-      x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
-      i = np.random.choice(self.hparams.time_size // 2 - self.hparams.aug_size) + self.hparams.time_size // 2
+      # augment time
+      i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
       x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
 
-      i = np.random.choice(self.hparams.num_mels // 2 - self.hparams.aug_size)
+      i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
+      x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+
+      # augment frequency
+      i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
       x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
-      i = np.random.choice(self.hparams.num_mels // 2 - self.hparams.aug_size) + self.hparams.num_mels // 2
+
+      i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
       x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
 
       return x, self.y[index]
