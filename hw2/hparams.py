@@ -25,17 +25,17 @@ class HParams(object):
 		# self.feature_length = 1024  # audio length = feature_length*hop_size/sample_rate (s)
 
 		# SpecAugment Parameters
-		self.mask_value = -3.0834918
+		self.mask_value = -3.09
 		self.aug_size = 16
 		self.aug_rate = 0.0
 
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...
 		self.batch_size = 64
-		self.num_epochs = 50
+		self.num_epochs = 30
 		self.learning_rate = 1e-3
 		self.stopping_rate = 1e-5
-		self.weight_decay = 1e-4
+		self.weight_decay = 1e-3
 		self.drop_rate = 0.0
 		self.momentum = 0.9
 		self.factor = 0.2

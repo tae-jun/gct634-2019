@@ -21,21 +21,15 @@ class GTZANDataset(Dataset):
     if self.aug:
       x = self.x[index].copy()
 
-      if np.random.uniform() > self.hparams.aug_rate:  # augment time
-        i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
-        x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+      i = np.random.choice(self.hparams.time_size // 2 - self.hparams.aug_size)
+      x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+      i = np.random.choice(self.hparams.time_size // 2 - self.hparams.aug_size) + self.hparams.time_size // 2
+      x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
 
-      if np.random.uniform() > self.hparams.aug_rate:  # augment frequency
-        i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
-        x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
-
-      if np.random.uniform() > self.hparams.aug_rate:  # augment time
-        i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
-        x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
-
-      if np.random.uniform() > self.hparams.aug_rate:  # augment frequency
-        i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
-        x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
+      i = np.random.choice(self.hparams.num_mels // 2 - self.hparams.aug_size)
+      x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
+      i = np.random.choice(self.hparams.num_mels // 2 - self.hparams.aug_size) + self.hparams.num_mels // 2
+      x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
 
       return x, self.y[index]
     else:
