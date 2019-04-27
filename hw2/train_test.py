@@ -9,6 +9,7 @@ import torch.optim as optim
 from torch.optim.lr_scheduler import ReduceLROnPlateau, StepLR
 
 import data_manager
+from collections import defaultdict
 from hparams import hparams
 from densenet import DenseNet
 # from torchvision.models import ResNet
@@ -86,6 +87,8 @@ class Runner(object):
     self.scheduler.step(epoch)
     self.learning_rate = self.optimizer.param_groups[0]['lr']
     stop = self.learning_rate < self.stopping_rate
+
+    self.optimizer.state = defaultdict(dict)
 
     return stop
 
