@@ -81,7 +81,7 @@ class Runner(object):
     return epoch_loss, epoch_acc
 
   # Early stopping function for given validation loss
-  def early_stop(self, loss, epoch):
+  def step_scheduler(self, epoch):
     # self.scheduler.step(loss, epoch)
     self.scheduler.step(epoch)
     self.learning_rate = self.optimizer.param_groups[0]['lr']
@@ -113,6 +113,8 @@ def main():
     #       (epoch + 1, hparams.num_epochs, train_loss, train_acc, valid_loss, valid_acc, test_acc * 10))
     print("[Epoch %d/%d] [Train Loss: %.4f] [Train Acc: %.4f] [Test Acc: %.4f]" %
           (epoch + 1, hparams.num_epochs, train_loss, train_acc, test_acc * 10))
+
+    runner.step_scheduler(epoch + 1)
 
     # if runner.early_stop(valid_loss, epoch + 1):
     #   break
