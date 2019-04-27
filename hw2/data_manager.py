@@ -21,29 +21,29 @@ class GTZANDataset(Dataset):
     if self.aug:
       x = self.x[index].copy()
 
-      if np.random.uniform() > 0.5:  # augment time
-        i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
-        x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
-
-      if np.random.uniform() > 0.5:  # augment frequency
-        i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
-        x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
-
-      if np.random.uniform() > 0.5:  # augment time
-        i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
-        x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
-
-      if np.random.uniform() > 0.5:  # augment frequency
-        i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
-        x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
-
-      if np.random.uniform() > 0.5:  # augment time
-        i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
-        x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
-
-      if np.random.uniform() > 0.5:  # augment frequency
-        i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
-        x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
+      # if np.random.uniform() > 0.5:  # augment time
+      #   i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
+      #   x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+      #
+      # if np.random.uniform() > 0.5:  # augment frequency
+      #   i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
+      #   x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
+      #
+      # if np.random.uniform() > 0.5:  # augment time
+      #   i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
+      #   x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+      #
+      # if np.random.uniform() > 0.5:  # augment frequency
+      #   i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
+      #   x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
+      #
+      # if np.random.uniform() > 0.5:  # augment time
+      #   i = np.random.choice(self.hparams.time_size - self.hparams.aug_size)
+      #   x[:, i:i + self.hparams.aug_size, :] = self.hparams.mask_value
+      #
+      # if np.random.uniform() > 0.5:  # augment frequency
+      #   i = np.random.choice(self.hparams.num_mels - self.hparams.aug_size)
+      #   x[:, :, i:i + self.hparams.aug_size] = self.hparams.mask_value
 
       return x, self.y[index]
     else:
