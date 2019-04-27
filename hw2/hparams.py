@@ -32,13 +32,14 @@ class HParams(object):
 		# Training Parameters
 		self.device = 0  # 0: CPU, 1: GPU0, 2: GPU1, ...
 		self.batch_size = 64
-		self.num_epochs = 30
+		self.num_epochs = 60
 		self.learning_rate = 1e-3
 		self.stopping_rate = 1e-5
 		self.weight_decay = 1e-2
 		self.drop_rate = 0.0
 		self.momentum = 0.9
-		self.factor = 0.2
+		self.factor = 0.1
+		self.lr_step = 20
 		self.patience = 3
 
 	# Function for parsing argument and set hyper parameters
