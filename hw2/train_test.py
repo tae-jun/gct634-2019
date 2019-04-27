@@ -82,8 +82,6 @@ class Runner(object):
     self.learning_rate = self.optimizer.param_groups[0]['lr']
     stop = self.learning_rate < self.stopping_rate
 
-    self.optimizer.state = defaultdict(dict)
-
     return stop
 
 
@@ -102,6 +100,9 @@ def main():
 
   print('Training on ' + device_name(hparams.device))
   for epoch in range(hparams.num_epochs):
+    if epoch % hparams.lr_step == 0:
+      runner.optimizer.state = defaultdict(dict)
+
     train_loss, train_acc = runner.run(train_loader, 'train')
     # valid_loss, valid_acc = runner.run(valid_loader, 'eval')
     test_loss, test_acc = runner.run(test_loader, 'test')
