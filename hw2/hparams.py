@@ -35,7 +35,7 @@ class HParams(object):
 		self.num_epochs = 30
 		self.learning_rate = 1e-3
 		self.stopping_rate = 1e-5
-		self.weight_decay = 1e-3
+		self.weight_decay = 1e-2
 		self.drop_rate = 0.0
 		self.momentum = 0.9
 		self.factor = 0.2
